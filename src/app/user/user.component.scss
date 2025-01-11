@@ -1,5 +1,60 @@
-.add-user-btn{
+mat-card-content{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+.add-user-btn {
     position: absolute;
     right: 56px;
     bottom: 56px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    cursor: pointer;
+
+    tr {
+        border-bottom: 1px solid rgba(179, 176, 176, 0.501);
+
+        &:last-child {
+            border: 0;
+        }
+
+        &:first-child{
+            cursor: default;
+
+            &:hover{
+                background-color: unset;
+            }
+            
+        }
+
+        &:hover{
+            background-color: rgba(47, 47, 47, 0.301);
+        }
+    }
+
+
+
+    td {
+        height: 48px;
+
+        &:first-child{
+            padding-left: 16px;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: 500;
+        text-align: start;
+
+        &:first-child{
+            padding-left: 16px;
+        }
+    }
+
+    
 }

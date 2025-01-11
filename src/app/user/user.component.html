@@ -1,3 +1,29 @@
-<button class="add-user-btn" matTooltip="Add user"  matTooltipPosition="above" mat-fab >
+<mat-card appearance="outlined">
+    <mat-card-content>
+        <table class="user-table">
+            <tr>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>City</th>
+            </tr>
+            <tr>
+                <td>Stephan</td>
+                <td>asd</td>
+                <td>asdsa</td>
+            </tr>
+
+            <tr>
+                <td>Stephan</td>
+                <td>asd</td>
+                <td>asdsa</td>
+            </tr>
+
+        </table>
+    </mat-card-content>
+</mat-card>
+
+
+
+<button (click)="openDialog()" class="add-user-btn" matTooltip="Add user" matTooltipPosition="above" mat-fab>
     <mat-icon>add</mat-icon>
 </button>
