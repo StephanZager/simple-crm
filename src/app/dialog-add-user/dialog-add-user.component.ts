@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,8 +16,9 @@ import {
 import { User } from '../../models/user.class';
 import { NgModel } from '@angular/forms';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
+import { UserComponent } from '../user/user.component';
 
 
 @Component({
@@ -33,7 +34,7 @@ import { NgIf } from '@angular/common';
     MatFormFieldModule,
     MatCalendar,
     MatDatepickerModule,
-    MatProgressBarModule,NgIf
+    MatProgressBarModule, NgIf
   ],
   templateUrl: './dialog-add-user.component.html',
   styleUrl: './dialog-add-user.component.scss'
@@ -43,8 +44,9 @@ export class DialogAddUserComponent {
   birthDate: Date | undefined;
   firestore: Firestore = inject(Firestore);
   loading = false
+  @Output() userAdded = new EventEmitter<void>();
 
-  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) {}
+  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
 
   async saveUser(): Promise<void> {
     if (this.birthDate) {
@@ -57,7 +59,10 @@ export class DialogAddUserComponent {
       const userCollection = collection(this.firestore, 'users');
       await addDoc(userCollection, { ...this.user });
       console.log('User added to Firestore');
+      this.userAdded.emit();
       this.dialogRef.close();
+      const userComponent = inject(UserComponent);
+      await userComponent.loadUsers();
     } catch (error) {
       console.error('Error adding user to Firestore: ', error);
     }
